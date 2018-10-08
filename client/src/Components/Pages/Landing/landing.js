@@ -5,40 +5,55 @@ import pic2 from './Assets/2.jpg'
 import pic3 from './Assets/3.jpg'
 const pictureArray = [pic1, pic2, pic3];
 class Landing extends Component {
-    state = {
-        image:''
-    }
-    componentDidMount() {
-        this.setState({
-            image:pic1
-        })
-        this.changeLandingImage();
-    }
-    changeLandingImage = () => {
-        let i = 0;
-        setTimeout( () => {
-            if (i >= pictureArray.length) {
-                let i = 0;
-                this.setState({
-                    image:pictureArray[i]
-                }, () => {
-                    this.changeLandingImage();
-                })
-            } else {
-                i++;
-                this.setState({
-                    image:pictureArray[i]
-                }, () => {
-                    this.changeLandingImage();
-                });
-            }
-        }, 3000)
-    }
+    // state = {
+    //     image:'',
+    //     counter:0
+    // }
+    // componentDidMount() {
+    //     this.changeLandingImage()
+    // }
+    // changeLandingImage = () => {
+    //     this.setState({
+    //         counter: this.state.counter+=1
+    //     })
+    //     if (this.state.counter > pictureArray.length) {
+    //             this.setState({
+    //                 counter:1,
+    //             }, () => {
+    //                 this.setState({
+    //                     image:pictureArray[this.state.counter-1]
+    //                 })
+    //             });
+    //     }
+    //     else {
+    //         this.setState({
+    //             image:pictureArray[this.state.counter-1]
+    //         })
+    //     }
+    //     setTimeout(this.changeLandingImage,3000);
+    // }
     render() {
         return(
-            <div className = 'slider'>
-                <img src = {this.state.image}/>
-            </div>
+            <ul className='landingSlide'>
+                    <li>
+                        <span></span>
+                        <div>
+                            <h3>Peace</h3>
+                        </div>
+                    </li>
+                    <li>
+                        <span></span>
+                        <div>
+                            <h3>Love</h3>
+                        </div>
+                    </li>
+                    <li>
+                        <span></span>
+                        <div>
+                            <h3>Serenity</h3>
+                        </div>
+                    </li>
+                </ul>
         )
     }
 }

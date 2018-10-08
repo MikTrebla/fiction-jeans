@@ -1,0 +1,26 @@
+/* .slider 
+    {
+        width:100%;
+        height:100%;
+        overflow-y:auto;
+    }
+.imageSlide 
+    {
+        width:100%;
+        height:100%;
+    }
+#sliding1
+    {
+        background-image: url('./Assets/1.jpg');
+    }
+#sliding2
+    {
+        background-image: url('./Assets/2.jpg');
+    }
+#sliding3
+    {
+        background-image: url('./Assets/3.jpg');
+    }
+
+
+ */

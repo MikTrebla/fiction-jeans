@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import "./App.css";
 import Landing from './Components/Pages/Landing';
-
+import Store from './Components/Pages/Store';
 class App extends Component {
 
   userAuth = () => {
@@ -15,8 +15,10 @@ class App extends Component {
   render() {
     return (
         <Router>
-          <Route exact path = '/' component = {Landing}/>
-          
+          <Switch>
+            <Route exact path = '/' component = {Landing}/>
+            <Route path = '/shop' component = {Store}/>
+          </Switch>
         </Router>
     );
   }

@@ -3,7 +3,8 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 3001;
 const app = express();
-
+const routes = require('./routes/routes.js')
+const mongoose = require('mongoose');
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -13,10 +14,11 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Define API routes here
-  //Create routing then uncomment below 
-  //>>>>
-      // app.use(routes);
 
+app.use(routes);
+
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fiction-jean_db")
 // Send every other request to the React app
 // Define any API routes before this runs
 app.get("*", (req, res) => {

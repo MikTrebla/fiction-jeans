@@ -4,6 +4,9 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import "./App.css";
 import Landing from './Components/Pages/Landing';
 import Store from './Components/Pages/Store';
+import Navbar from './Components/Navbar';
+import Wrapper from './Components/Wrapper';
+import ProductPage from './Components/Pages/SingleProductPage';
 class App extends Component {
 
   userAuth = () => {
@@ -15,10 +18,14 @@ class App extends Component {
   render() {
     return (
         <Router>
-          <Switch>
-            <Route exact path = '/' component = {Landing}/>
-            <Route path = '/shop' component = {Store}/>
-          </Switch>
+          <Wrapper>
+            <Navbar/>
+            <Switch>
+              <Route exact path = '/' component = {Landing}/>
+              <Route path = '/shop' component = {Store}/>
+              <Route path ='/product' component={ProductPage} />
+            </Switch>
+          </Wrapper>
         </Router>
     );
   }

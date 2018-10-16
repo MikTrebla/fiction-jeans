@@ -25,10 +25,7 @@ class Store extends Component {
             console.log(error);
         })
     }
-    onClickFilter = (event) => {
-        console.log(event.target.value);
-        // api route search by filter with event.target.value as search term
-    }
+
     handleChange = event => {
         if (event.key==='Enter') {
             console.log('enter');
@@ -37,19 +34,52 @@ class Store extends Component {
         this.setState({
             [name]: value
         });
+       
     }
     handleSearchProduct = (event) => {
         if (event.key==='Enter') {
             event.preventDefault();
-            //do routing based on search term
+            let search = {search:document.getElementById('search').value}
+            
+            axios.post('/api/filterByInput', search)
+            .then(response => {
+                if(response.data.length===0){
+                    this.getProducts();
+                }
+                else {
+                    this.setState({
+                        productsList:response.data
+                    })
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            })
         }
     }
+    onClickFilter = (event) => {
+        event.preventDefault();
+        let filter = {category:event.target.value}
+        axios.post('/api/filterByCategory',filter)
+        .then(response => {
+            this.setState({
+                productsList:response.data
+            })
+        })
+        .catch(error => {
+            console.error(error);
+        })
+    }
+    removeFilters = () => {
+        this.setState({
+            search:''
+        })
+        this.getProducts();
+    }
     handleSingleItemPage = id => {
-        console.log(id);
         axios.post(`/shop/${id}`)
         .then(response => {
-            console.log('response:', response);
-            this.props.history.push(`/product/${id}`);
+            this.props.history.push(`/product?id=${id}`);
         })
         .catch(error => {
             console.error(error);
@@ -61,7 +91,7 @@ class Store extends Component {
                 <div className='row'>
                     <div id='filters'>
                         <input 
-                            onKeyDown = {this.handleSearchProduct} onChange = {this.handleChange} name='search' value={this.state.search} type='text' placeholder='Search for an item 🔎'>
+                            id='search' onKeyDown = {this.handleSearchProduct} onChange = {this.handleChange} name='search' value={this.state.search} type='text' placeholder='Search for an item 🔎'>
                         </input>
                         <button 
                             onClick={this.onClickFilter}
@@ -77,12 +107,15 @@ class Store extends Component {
                         </button>
                         <button 
                             onClick={this.onClickFilter}
-                            value='accessories' className='filter-product'>Accessories
+                            value='accessory' className='filter-product'>Accessories
+                        </button>
+                        <button className='filter-product' onClick={this.removeFilters}>
+                            Remove Filters
                         </button>
                     </div>
                     <div id ='store'>
                         <ul>
-                            {this.state.productsList===[]?<p>Uh oh, something went wrong.</p>:this.state.productsList.map((item, i) => {
+                            {this.state.productsList.map((item, i) => {
                                 return (
                                     <div key={i} className='product-container'>
                                         <li 
@@ -99,9 +132,8 @@ class Store extends Component {
                                         <p className='product-description'>
                                             {item.productDescription}
                                         </p>
-                                    </div>
-                                    
-                                )
+                                    </div> 
+                                )   
                             })}
                         </ul>
                     </div>

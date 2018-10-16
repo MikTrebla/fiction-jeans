@@ -7,7 +7,8 @@ class Product extends Component {
         productDescription:'',
         productPrice:'',
         productImage:'',
-        productID:''
+        productID:'',
+        quantityPurchase:1
     }
 
     componentDidMount = () => {
@@ -15,9 +16,8 @@ class Product extends Component {
     }
 
     getProductInfo = () => {
-        let productID=(window.location.href).match(/(product).+\w/g)
-
-        axios.get(`/api/${productID}`)
+        let productID=(window.location.href).split('?id=');
+        axios.get(`/api/product/${productID[1]}`)
         .then(response => {
             this.setState({
                 productName:response.data[0].productName,
@@ -37,13 +37,28 @@ class Product extends Component {
                 Product Page
                 <div >
                     <p>{this.state.productName}</p>
-                    <p>{this.state.productPrice}</p>
+                    <p>${this.state.productPrice}</p>
                     <p>{this.state.productDescription}</p>
                     <img alt={this.state.productName} src={this.state.productImage}></img>
                 </div>
-                <button id={this.state.productID} >
-                    Add to cart
-                </button>
+                
+                <div>
+                <select>
+                        <option value='1'>1</option>
+                        <option value='2'>2</option>
+                        <option value='3'>3</option>
+                        <option value='4'>4</option>
+                        <option value='5'>5</option>
+                        <option value='6'>6</option>
+                        <option value='7'>7</option>
+                        <option value='8'>8</option>
+                        <option value='9'>9</option>
+                        <option value='10'>10</option>
+                    </select>
+                    <button id={this.state.productID} >
+                        Add to cart
+                    </button>
+                </div>
             </div>
         )
     }

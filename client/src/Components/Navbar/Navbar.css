@@ -19,6 +19,7 @@ h1 {
     position:relative;
     top:0;
     right:0;
+    cursor: pointer;
 }
 
 a {

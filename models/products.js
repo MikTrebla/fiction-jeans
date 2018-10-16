@@ -17,6 +17,10 @@ const productSchema = new Schema({
         type:Number,
         required:true,
     },
+    category: {
+        type:Array,
+        required:true
+    },
     productImage: {
         type:Buffer,
         contentType:String
